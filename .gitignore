@@ -147,7 +147,7 @@ dist
 
 # Gatsby files
 .cache/
-public
+# public - COMMENTED OUT for Create React App (we need public/ folder)
 
 # vuepress build output
 .vuepress/dist
