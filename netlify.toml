@@ -1,0 +1,76 @@
+# Netlify configuration for React app
+
+[build]
+  # Build command
+  command = "npm run build"
+  
+  # Directory with the build output
+  publish = "build"
+  
+  # Base directory (optional, defaults to root)
+  base = "."
+
+# Production environment variables (if needed)
+[build.environment]
+  NODE_VERSION = "18"
+  NPM_VERSION = "10"
+
+# Redirect rules for Single Page Application
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
+
+# Headers for security and performance
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Frame-Options = "DENY"
+    X-XSS-Protection = "1; mode=block"
+    X-Content-Type-Options = "nosniff"
+    Referrer-Policy = "strict-origin-when-cross-origin"
+
+# Cache static assets
+[[headers]]
+  for = "/static/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+# Cache images
+[[headers]]
+  for = "*.jpg"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000"
+
+[[headers]]
+  for = "*.png"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000"
+
+[[headers]]
+  for = "*.svg"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000"
+
+# Cache CSS and JS
+[[headers]]
+  for = "*.css"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000"
+
+[[headers]]
+  for = "*.js"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000"
+
+# Development context (optional)
+[context.deploy-preview]
+  command = "npm run build"
+
+[context.branch-deploy]
+  command = "npm run build"
+
+# Plugin configuration (optional)
+# Uncomment if you want to use Netlify plugins
+# [[plugins]]
+#   package = "@netlify/plugin-lighthouse"
